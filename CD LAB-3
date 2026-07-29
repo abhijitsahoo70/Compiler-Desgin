@@ -1,0 +1,199 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/abhijitsahoo70/Compiler-Desgin/blob/main/CD%20LAB-3\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "1.write a program lexical analyser(scaner) to identify keywords, operator,constant,delemeters,and special symbol"
+      ],
+      "metadata": {
+        "id": "Xdxfsk9m5M73"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import keyword\n",
+        "import re\n",
+        "\n",
+        "# Define operators, delimiters, and special symbols\n",
+        "operators = ['+', '-', '*', '/', '%', '=', '==', '!=', '<', '>', '<=', '>=']\n",
+        "delimiters = ['(', ')', '{', '}', '[', ']', ';', ',', ':']\n",
+        "special_symbols = ['#', '@', '$', '&']\n",
+        "\n",
+        "# Input from user\n",
+        "code = input(\"Enter a statement: \")\n",
+        "\n",
+        "# Split the input into tokens\n",
+        "tokens = re.findall(r'\\w+|==|!=|<=|>=|[^\\s\\w]', code)\n",
+        "\n",
+        "print(\"\\nLexical Analysis:\\n\")\n",
+        "\n",
+        "for token in tokens:\n",
+        "    if keyword.iskeyword(token):\n",
+        "        print(f\"{token} --> Keyword\")\n",
+        "    elif token in operators:\n",
+        "        print(f\"{token} --> Operator\")\n",
+        "    elif token in delimiters:\n",
+        "        print(f\"{token} --> Delimiter\")\n",
+        "    elif token in special_symbols:\n",
+        "        print(f\"{token} --> Special Symbol\")\n",
+        "    elif re.fullmatch(r'\\d+(\\.\\d+)?', token):\n",
+        "        print(f\"{token} --> Constant\")\n",
+        "    elif re.fullmatch(r'[A-Za-z_]\\w*', token):\n",
+        "        print(f\"{token} --> Identifier\")\n",
+        "    else:\n",
+        "        print(f\"{token} --> Unknown\")\n"
+      ],
+      "metadata": {
+        "id": "C_Hp1amz5oBv",
+        "outputId": "efc3ed3f-0407-4b2d-ae7a-0e296a8fc5b7",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a statement: int a = 25; if(a > 10){     a = a + 5; }\n",
+            "\n",
+            "Lexical Analysis:\n",
+            "\n",
+            "int --> Identifier\n",
+            "a --> Identifier\n",
+            "= --> Operator\n",
+            "25 --> Constant\n",
+            "; --> Delimiter\n",
+            "if --> Keyword\n",
+            "( --> Delimiter\n",
+            "a --> Identifier\n",
+            "> --> Operator\n",
+            "10 --> Constant\n",
+            ") --> Delimiter\n",
+            "{ --> Delimiter\n",
+            "a --> Identifier\n",
+            "= --> Operator\n",
+            "a --> Identifier\n",
+            "+ --> Operator\n",
+            "5 --> Constant\n",
+            "; --> Delimiter\n",
+            "} --> Delimiter\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "2.write a python program that counts numbre keywords,identifiers,operators,Delimiters,literers, in a given C source program"
+      ],
+      "metadata": {
+        "id": "B5z2wAB4AZmb"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import re\n",
+        "\n",
+        "# C keywords\n",
+        "keywords = {\n",
+        "    \"auto\", \"break\", \"case\", \"char\", \"const\", \"continue\", \"default\",\n",
+        "    \"do\", \"double\", \"else\", \"enum\", \"extern\", \"float\", \"for\", \"goto\",\n",
+        "    \"if\", \"int\", \"long\", \"register\", \"return\", \"short\", \"signed\",\n",
+        "    \"sizeof\", \"static\", \"struct\", \"switch\", \"typedef\", \"union\",\n",
+        "    \"unsigned\", \"void\", \"volatile\", \"while\"\n",
+        "}\n",
+        "\n",
+        "# Operators and delimiters\n",
+        "operators = ['+', '-', '*', '/', '%', '=', '==', '!=', '<', '>', '<=', '>=',\n",
+        "             '&&', '||', '!', '++', '--']\n",
+        "\n",
+        "delimiters = ['(', ')', '{', '}', '[', ']', ';', ',', ':']\n",
+        "\n",
+        "# Read C program\n",
+        "code = input(\"Enter C source program: \")\n",
+        "\n",
+        "# Tokenize the input\n",
+        "tokens = re.findall(r'\"[^\"]*\"|\\d+\\.\\d+|\\d+|==|!=|<=|>=|\\+\\+|--|&&|\\|\\||\\w+|[^\\s\\w]', code)\n",
+        "\n",
+        "# Counters\n",
+        "keyword_count = 0\n",
+        "identifier_count = 0\n",
+        "operator_count = 0\n",
+        "delimiter_count = 0\n",
+        "literal_count = 0\n",
+        "\n",
+        "# Analyze tokens\n",
+        "for token in tokens:\n",
+        "    if token in keywords:\n",
+        "        keyword_count += 1\n",
+        "    elif token in operators:\n",
+        "        operator_count += 1\n",
+        "    elif token in delimiters:\n",
+        "        delimiter_count += 1\n",
+        "    elif re.fullmatch(r'\\d+(\\.\\d+)?', token) or re.fullmatch(r'\"[^\"]*\"', token):\n",
+        "        literal_count += 1\n",
+        "    elif re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*', token):\n",
+        "        identifier_count += 1\n",
+        "\n",
+        "# Display results\n",
+        "print(\"\\nToken Counts:\")\n",
+        "print(\"Keywords    :\", keyword_count)\n",
+        "print(\"Identifiers :\", identifier_count)\n",
+        "print(\"Operators   :\", operator_count)\n",
+        "print(\"Delimiters  :\", delimiter_count)\n",
+        "print(\"Literals    :\", literal_count)\n"
+      ],
+      "metadata": {
+        "id": "39wB6j2rA_uH",
+        "outputId": "7f9dcaf6-47c2-4874-dd28-46c2cb41bd1c",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter C source program: int main() {     int a = 10;     float b = 2.5;     if(a > 5)         a++;     return 0; }\n",
+            "\n",
+            "Token Counts:\n",
+            "Keywords    : 5\n",
+            "Identifiers : 5\n",
+            "Operators   : 4\n",
+            "Delimiters  : 10\n",
+            "Literals    : 4\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
