@@ -1,0 +1,139 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyP7MwDzpJHXXRg9Akz4RRZ7",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/abhijitsahoo70/Compiler-Desgin/blob/main/CD%20LAB-4\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Write a python program to desgin a DFA to reccocnize string ending with 01.\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "AUzjoDlD33cb"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "string = input(\"Enter a Binary string: \")\n",
+        "state = 0\n",
+        "for ch in string:\n",
+        "  if ch not in ('0','1'):\n",
+        "    print(\"Invalid Input\")\n",
+        "    exit()\n",
+        "  if state == 0:\n",
+        "    if ch == '0':\n",
+        "      state = 1\n",
+        "    else:\n",
+        "      state = 0\n",
+        "  elif state == 1:\n",
+        "    if ch == '0':\n",
+        "      state = 1\n",
+        "    else:\n",
+        "      state =2\n",
+        "  elif state == 2:\n",
+        "    if ch == '0':\n",
+        "      state = 1\n",
+        "    else:\n",
+        "      state = 0\n",
+        "if state == 2:\n",
+        "  print(\"Accepted\")\n",
+        "else:\n",
+        "  print(\"Rejected\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-2deFbod9u1Z",
+        "outputId": "6318fc09-dd63-4244-fb6a-ce2cc8c862e6"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a Binary string: 01\n",
+            "Accepted\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Write a python program to desgin a DFA to recocnize string containg even no of O's and number of 1's"
+      ],
+      "metadata": {
+        "id": "oul_HyveAqAA"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "string = input(\"Enter a Binary string: \")\n",
+        "\n",
+        "zeros = 0\n",
+        "ones = 0\n",
+        "\n",
+        "for ch in string:\n",
+        "    if ch not in ('0', '1'):\n",
+        "        print(\"Invalid Input\")\n",
+        "        exit()\n",
+        "\n",
+        "    if ch == '0':\n",
+        "        zeros += 1\n",
+        "    else:\n",
+        "        ones += 1\n",
+        "\n",
+        "if zeros % 2 == 0 and ones % 2 == 0:\n",
+        "    print(\"Accepted: Even number of 0's and even number of 1's.\")\n",
+        "else:\n",
+        "    print(\"Rejected: Does not contain even number of 0's and even number of 1's.\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "XBBUbzdP9u3A",
+        "outputId": "4505df05-4e39-4a56-9919-339f7c0706a7"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a Binary string: 01\n",
+            "Rejected: Does not contain even number of 0's and even number of 1's.\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
