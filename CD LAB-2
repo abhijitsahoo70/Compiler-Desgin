@@ -1,0 +1,95 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPuTsnzzlw8bZL3Nby/3RtI",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/abhijitsahoo70/Compiler-Desgin/blob/main/CD%20LAB-2\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "write a python program to read assemble label and their address and generate a symbol table."
+      ],
+      "metadata": {
+        "id": "4YJttYKazNQx"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "dgBSbmMJzL-3",
+        "outputId": "5c6b2412-8cc7-4a45-ffe4-5e0ccc6f614a"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter the number of labels: 5\n",
+            "Enter label 1: Abhijit\n",
+            "Enter address of Abhijit: Barasat\n",
+            "Enter label 2: Arnob\n",
+            "Enter address of Arnob: Howrah\n",
+            "Enter label 3: Pritam\n",
+            "Enter address of Pritam: Kamarpukur\n",
+            "Enter label 4: Rupam\n",
+            "Enter address of Rupam: Nodiya\n",
+            "Enter label 5: Anish\n",
+            "Enter address of Anish: Barasat\n",
+            "\n",
+            "SYMBOL TABLE\n",
+            "------------------------------\n",
+            "Label          Address\n",
+            "------------------------------\n",
+            "Abhijit        Barasat\n",
+            "Arnob          Howrah\n",
+            "Pritam         Kamarpukur\n",
+            "Rupam          Nodiya\n",
+            "Anish          Barasat\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "symbol_table = {}\n",
+        "n = int(input(\"Enter the number of labels: \"))\n",
+        "for i in range(n):\n",
+        "    label = input(f\"Enter label {i + 1}: \")\n",
+        "    address = input(f\"Enter address of {label}: \")\n",
+        "    symbol_table[label] = address\n",
+        "print(\"\\nSYMBOL TABLE\")\n",
+        "print(\"-\" * 30)\n",
+        "print(\"{:<15}{}\".format(\"Label\", \"Address\"))\n",
+        "print(\"-\" * 30)\n",
+        "\n",
+        "for label, address in symbol_table.items():\n",
+        "    print(\"{:<15}{}\".format(label, address))"
+      ]
+    }
+  ]
+}
